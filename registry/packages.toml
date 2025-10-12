@@ -1,0 +1,73 @@
+# ggen Marketplace Registry
+# Production registry hosted on GitHub Pages
+# Registry URL: https://seanchatmangpt.github.io/ggen/marketplace/registry/packages.toml
+
+version = "1.0.0"
+registry_url = "https://github.com/seanchatmangpt/ggen"
+raw_base_url = "https://raw.githubusercontent.com/seanchatmangpt/ggen/master"
+pages_url = "https://seanchatmangpt.github.io/ggen"
+
+# Advanced Rust API Template (Production Example)
+[[package]]
+name = "advanced-rust-api-8020"
+full_name = "ggen/advanced-rust-api-8020"
+version = "0.1.0"
+description = "Production-ready REST API with complete lifecycle, AI generation, and 80/20 principles"
+category = "templates"
+author = "ggen-team"
+repository = "https://github.com/seanchatmangpt/ggen"
+# GitHub raw URL for direct download
+download_url = "https://github.com/seanchatmangpt/ggen/archive/refs/heads/master.zip"
+path = "examples/advanced-rust-api-8020"
+license = "MIT"
+dependencies = []
+features = [
+    "Complete lifecycle management with make.toml",
+    "AI-powered code generation from SPARQL specifications",
+    "Production readiness tracking (80/20 rule)",
+    "JWT authentication with bcrypt",
+    "Comprehensive error handling (no .expect() in production)",
+    "Structured logging with tracing",
+    "Health check endpoints",
+    "OpenAPI documentation ready",
+    "Docker containerization",
+    "Complete test suite with 80%+ coverage",
+    "Database migrations with SQLx",
+    "Environment-based configuration"
+]
+tags = ["rust", "api", "rest", "production", "lifecycle", "ai-generation", "8020", "axum", "jwt"]
+keywords = ["rust", "axum", "rest-api", "production", "template", "ai", "sparql", "lifecycle"]
+
+# Rust CLI Template
+[[package]]
+name = "rust-cli-template"
+full_name = "ggen/rust-cli-template"
+version = "0.1.0"
+description = "Production-ready CLI application template with clap, error handling, and testing"
+category = "templates"
+author = "ggen-team"
+repository = "https://github.com/seanchatmangpt/ggen"
+download_url = "https://github.com/seanchatmangpt/ggen/archive/refs/heads/master.zip"
+path = "marketplace/packages/rust-cli-template"
+license = "MIT"
+dependencies = []
+features = ["Clap argument parsing", "Comprehensive error handling", "Unit testing", "Integration testing", "CI/CD ready"]
+tags = ["rust", "cli", "template", "production"]
+keywords = ["rust", "cli", "template", "command-line"]
+
+# GraphQL API Template
+[[package]]
+name = "graphql-api-rust"
+full_name = "ggen/graphql-api-rust"
+version = "0.1.0"
+description = "GraphQL API server with async-graphql, authentication, and subscriptions"
+category = "templates"
+author = "ggen-team"
+repository = "https://github.com/seanchatmangpt/ggen"
+download_url = "https://github.com/seanchatmangpt/ggen/archive/refs/heads/master.zip"
+path = "marketplace/packages/graphql-api-rust"
+license = "MIT"
+dependencies = []
+features = ["async-graphql integration", "JWT authentication", "Real-time subscriptions", "Database integration"]
+tags = ["rust", "graphql", "api", "async"]
+keywords = ["rust", "graphql", "api", "subscription"]
