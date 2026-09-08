@@ -88,10 +88,7 @@ impl SemanticTraversalReport {
             semantic_fact_count,
             interpretation_count,
             projection_reuse_count,
-            mean_semantic_traversal: ExactRatio::new(
-                interpretation_count,
-                semantic_fact_count,
-            ),
+            mean_semantic_traversal: ExactRatio::new(interpretation_count, semantic_fact_count),
             projection_reuse_ratio: ExactRatio::new(projection_reuse_count, total_uses),
         })
     }
@@ -109,9 +106,7 @@ pub struct SemanticTraversalReceipt {
 
 impl SemanticTraversalReceipt {
     pub fn manufacture(
-        exact_subject: impl Into<String>,
-        manufacturer: impl Into<String>,
-        uses: &[SemanticFactUse],
+        exact_subject: impl Into<String>, manufacturer: impl Into<String>, uses: &[SemanticFactUse],
     ) -> Result<Self, SemanticTraversalRefusal> {
         let exact_subject = exact_subject.into();
         let manufacturer = manufacturer.into();
@@ -192,9 +187,7 @@ fn validate_exact_subject(subject: &str) -> Result<(), SemanticTraversalRefusal>
 }
 
 fn receipt_digest(
-    exact_subject: &str,
-    manufacturer: &str,
-    report: &SemanticTraversalReport,
+    exact_subject: &str, manufacturer: &str, report: &SemanticTraversalReport,
     actuation_performed: bool,
 ) -> Result<String, SemanticTraversalRefusal> {
     let material = serde_json::to_vec(&(
@@ -212,7 +205,9 @@ fn receipt_digest(
 mod tests {
     use super::*;
 
-    fn usage(fact_id: &str, digest: &str, projection: &str, mode: SemanticUseMode) -> SemanticFactUse {
+    fn usage(
+        fact_id: &str, digest: &str, projection: &str, mode: SemanticUseMode,
+    ) -> SemanticFactUse {
         SemanticFactUse {
             fact_id: fact_id.to_string(),
             semantic_digest: digest.to_string(),
@@ -224,8 +219,18 @@ mod tests {
     #[test]
     fn measures_reuse_without_collapsing_distinct_facts() {
         let report = SemanticTraversalReport::from_uses(&[
-            usage("capability:a", "sha256:a", "repo-one", SemanticUseMode::ProjectionReuse),
-            usage("capability:a", "sha256:a", "repo-two", SemanticUseMode::ProjectionReuse),
+            usage(
+                "capability:a",
+                "sha256:a",
+                "repo-one",
+                SemanticUseMode::ProjectionReuse,
+            ),
+            usage(
+                "capability:a",
+                "sha256:a",
+                "repo-two",
+                SemanticUseMode::ProjectionReuse,
+            ),
             usage(
                 "capability:b",
                 "sha256:b",
@@ -264,8 +269,18 @@ mod tests {
     #[test]
     fn same_fact_with_different_digest_refuses() {
         let result = SemanticTraversalReport::from_uses(&[
-            usage("capability:a", "sha256:a", "repo-one", SemanticUseMode::ProjectionReuse),
-            usage("capability:a", "sha256:other", "repo-two", SemanticUseMode::ProjectionReuse),
+            usage(
+                "capability:a",
+                "sha256:a",
+                "repo-one",
+                SemanticUseMode::ProjectionReuse,
+            ),
+            usage(
+                "capability:a",
+                "sha256:other",
+                "repo-two",
+                SemanticUseMode::ProjectionReuse,
+            ),
         ]);
         assert_eq!(
             result,
@@ -294,8 +309,10 @@ mod tests {
             SemanticUseMode::ProjectionReuse,
         )];
         let subject = "seanchatmangpt/ggen@36caa86eba04de0eae1769e71142df86fd370854";
-        let first = SemanticTraversalReceipt::manufacture(subject, "repository:ggen", &uses).unwrap();
-        let second = SemanticTraversalReceipt::manufacture(subject, "repository:ggen", &uses).unwrap();
+        let first =
+            SemanticTraversalReceipt::manufacture(subject, "repository:ggen", &uses).unwrap();
+        let second =
+            SemanticTraversalReceipt::manufacture(subject, "repository:ggen", &uses).unwrap();
         assert_eq!(first.digest, second.digest);
         assert!(first.replay());
     }
